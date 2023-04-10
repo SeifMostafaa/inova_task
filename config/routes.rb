@@ -5,9 +5,10 @@ Rails.application.routes.draw do
   # root "articles#index"
   scope :users do
     scope ":user_id" do    
-      resources :posts
+      get "/posts", to: "posts#index"
     end
   end
 
-  get "/top_posts", to: "posts#top_posts"
+  resources :posts
+  resources :reviews
 end

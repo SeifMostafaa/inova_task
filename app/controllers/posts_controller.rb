@@ -12,4 +12,20 @@ class PostsController < ApplicationController
 
     render json: @posts
   end
+
+  def create
+    @post = Post.new(post_params)
+    
+    unless @post.save
+      render json: { errors: @post.errors.full_messages }, status: :unprocessable_entity
+    else
+      render json: @post, status: :ok
+    end
+  end
+
+  private
+
+  def post_params
+    params.permit(:user_id, :title, :body)
+  end
 end
